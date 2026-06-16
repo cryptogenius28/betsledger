@@ -64,7 +64,7 @@ function getComparisonRows(listingA: Listing, listingB: Listing): ComparisonRow[
       .map((a) => [a.key, a])
   )
 
-  const allKeys = new Set([...attrsA.keys(), ...attrsB.keys()])
+  const allKeys = new Set([...Array.from(attrsA.keys()), ...Array.from(attrsB.keys())])
 
   const rows: ComparisonRow[] = Array.from(allKeys).map((key) => {
     const attrA = attrsA.get(key)
