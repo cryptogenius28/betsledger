@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createStaticClient } from '@/lib/supabase/static'
 import AttributeTable from '@/components/AttributeTable'
 import AffiliateCTA from '@/components/AffiliateCTA'
 import RelatedListings from '@/components/RelatedListings'
@@ -27,7 +28,7 @@ async function getListing(vertical: Vertical, slug: string): Promise<Listing | n
 }
 
 export async function generateStaticParams() {
-  const supabase = createClient()
+  const supabase = createStaticClient()
   const { data: listings } = await supabase.from('listings').select('vertical, slug')
 
   return (listings ?? []).map((l) => ({ vertical: l.vertical, slug: l.slug }))

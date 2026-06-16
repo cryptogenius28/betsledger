@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createStaticClient } from '@/lib/supabase/static'
 import AffiliateCTA from '@/components/AffiliateCTA'
 import { VERTICAL_LABELS, type Listing, type ListingAttribute } from '@/types/database'
 import { formatAttributeValue, compareAttributeWinner } from '@/lib/format'
@@ -82,7 +83,7 @@ function getComparisonRows(listingA: Listing, listingB: Listing): ComparisonRow[
 }
 
 export async function generateStaticParams() {
-  const supabase = createClient()
+  const supabase = createStaticClient()
   const { data: pairs } = await supabase
     .from('comparison_pairs')
     .select('slug_a, slug_b')
